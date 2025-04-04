@@ -2,12 +2,13 @@ import express, { Application } from "express";
 import ip from "ip";
 import cors from "cors";
 import TeacherRoutes from "./routes/TeachersRoutes";
+import StudentsRoutes from "./routes/StudentsRoutes";
 
 export class App {
     private readonly app: Application;
     private readonly APPLICATION_RUNNING = "Application is running on:";
     private readonly ROUTE_NOT_FOUND = "Route does not exist on the server";
-    private readonly API_PREFIX_List = "/jk-Nana/schools/mis-app"; 
+    private readonly API_PREFIX_List = "/jk-Nana/schools/mis-app";
 
     constructor(private readonly port: string | number = process.env.SERVER_PORT || 5000) {
         this.app = express();
@@ -28,5 +29,7 @@ export class App {
 
     private routes(): void {
         this.app.use(`${this.API_PREFIX_List}/lists`, TeacherRoutes);
+        this.app.use(`${this.API_PREFIX_List}/lists`, StudentsRoutes);
     }
+
 }

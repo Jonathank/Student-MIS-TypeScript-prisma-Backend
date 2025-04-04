@@ -1,16 +1,16 @@
-import prisma from "../../lib/prisma";
+import prisma from "../lib/prisma";
 
-export class TeachersService {
+export class StudentsService {
 
-    async getAllTeachers(page: number = 1, limit: number = 10) {
+    async getAllStudents(page: number = 1, limit: number = 10) {
         try {
             const skip = (page - 1) * limit;
 
-            const [teachers, total] = await Promise.all([
-                prisma.teacher.findMany({
+            const [students, total] = await Promise.all([
+                prisma.student.findMany({
                     include: {
-                        subjects: true,
-                        classes: true,
+                        grade: true,
+                        class: true,
                     },
                     take: limit,
                     skip: skip, 
@@ -19,15 +19,15 @@ export class TeachersService {
             ]);
 
             return {
-                data:teachers,
+                data:students,
                 total,
                 page,
                 limit,
                 totalPages: Math.ceil(total / limit),
             };
         } catch (error: unknown) {
-            console.error("Error retrieving teachers:", error);
-            throw new Error("Failed to fetch teachers");
+            console.error("Error retrieving students:", error);
+            throw new Error("Failed to fetch students");
         }
     }  
 }

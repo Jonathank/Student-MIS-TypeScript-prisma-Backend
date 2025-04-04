@@ -10,5 +10,4 @@ TeacherRoutes.get("/teachers", (req, res) => teachersController.getAllTeachers(r
 // router.post("/", teachersController.createTeacher);
 // router.put("/:id", teachersController.updateTeacher);
 // router.delete("/:id", teachersController.deleteTeacher);
-
 export default TeacherRoutes;

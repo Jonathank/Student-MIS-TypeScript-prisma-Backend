@@ -3,7 +3,6 @@ import { TeachersService } from "../services/teacherServices/TeacherServices";
 import { HttpResponse } from "../domain/Response";
 import { Code } from "../enum/Code.enum";
 import { Status } from "../enum/Status.enum";
-import { Teacher } from "@prisma/client";
 
 export class TeachersController {
 
@@ -15,9 +14,12 @@ export class TeachersController {
 
     public getAllTeachers = async (req: Request, res: Response): Promise<any> => {
             console.info(`[${new Date().toLocaleString()}] Incoming ${req.method} ${req.originalUrl} Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`);
+        try {
+                const page = parseInt(req.query.page as string) || 1;
+            const limit = parseInt(req.query.limit as string) || 10;
 
-            try {
-                const teachers=  await this.teachersService.getAllTeachers();
+            const teachers = await this.teachersService.getAllTeachers(page, limit);
+               
                return res.status(Code.OK)
                     .json(new HttpResponse(Code.OK, Status.OK, 'Teachers retrieved', teachers));
             } catch(error: unknown) {
