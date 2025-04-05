@@ -2,7 +2,7 @@ import prisma from "../../lib/prisma";
 
 export class TeachersService {
 
-    async getAllTeachers(page: number = 1, limit: number = 10) {
+    async getAllTeachers(page: number, limit: number) {
         try {
             const skip = (page - 1) * limit;
 

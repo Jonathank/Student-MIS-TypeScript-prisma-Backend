@@ -18,10 +18,10 @@ export class StudentsController {
             const page = parseInt(req.query.page as string) || 1;
             const limit = parseInt(req.query.limit as string) || 10;
 
-            const teachers = await this.StudentsService.getAllStudents(page, limit);
+            const students = await this.StudentsService.getAllStudents(page, limit);
                
             return res.status(Code.OK)
-                .json(new HttpResponse(Code.OK, Status.OK, 'Students retrieved', teachers));
+                .json(new HttpResponse(Code.OK, Status.OK, 'Students retrieved', students));
         } catch (error: unknown) {
             console.error('Error retrieving students:', error);
 

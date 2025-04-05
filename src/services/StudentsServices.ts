@@ -1,8 +1,7 @@
 import prisma from "../lib/prisma";
 
 export class StudentsService {
-
-    async getAllStudents(page: number = 1, limit: number = 10) {
+    async getAllStudents(page: number, limit: number) {
         try {
             const skip = (page - 1) * limit;
 
@@ -13,13 +12,13 @@ export class StudentsService {
                         class: true,
                     },
                     take: limit,
-                    skip: skip, 
+                    skip: skip,
                 }),
-                prisma.teacher.count()
+                prisma.student.count()
             ]);
 
             return {
-                data:students,
+                data: students,
                 total,
                 page,
                 limit,
@@ -29,5 +28,5 @@ export class StudentsService {
             console.error("Error retrieving students:", error);
             throw new Error("Failed to fetch students");
         }
-    }  
+    }
 }
