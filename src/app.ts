@@ -28,7 +28,9 @@ export class App {
     }
 
     private routes(): void {
+        //teacher routes
         this.app.use(`${this.API_PREFIX_List}/lists`, TeacherRoutes);
+        this.app.use(`${this.API_PREFIX_List}/lists/teachers/:id`, TeacherRoutes);
 
         //students routes
         this.app.use(`${this.API_PREFIX_List}/lists`, StudentsRoutes);
