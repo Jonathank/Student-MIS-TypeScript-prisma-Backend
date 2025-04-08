@@ -13,23 +13,27 @@ export class TeachersController {
     }
 
     public getAllTeachers = async (req: Request, res: Response): Promise<any> => {
-            console.info(`[${new Date().toLocaleString()}] Incoming ${req.method} ${req.originalUrl} Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`);
         try {
-                const page = parseInt(req.query.page as string) || 1;
+            const page = parseInt(req.query.page as string) || 1;
             const limit = parseInt(req.query.limit as string) || 10;
+            const classId = req.query.classId ? parseInt(req.query.classId as string) : undefined;
+            const gender = req.query.gender as string | undefined;
+            const search = req.query.search as string | undefined;
 
-            const teachers = await this.teachersService.getAllTeachers(page, limit);
-               
-               return res.status(Code.OK)
-                    .json(new HttpResponse(Code.OK, Status.OK, 'Teachers retrieved', teachers));
-            } catch(error: unknown) {
-                console.error('Error retrieving teachers:', error);
+            const teachers = await this.teachersService.getAllTeachers(page, limit, classId, search, gender);
 
-              return  res.status(Code.INTERNAL_SERVER_ERROR)
-                    .json(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'An error occurred'));
-            }
+            return res.status(Code.OK).json(
+                new HttpResponse(Code.OK, Status.OK, "Teachers retrieved", teachers)
+            );
+        } catch (error: unknown) {
+            console.error("Error retrieving teachers:", error);
+            return res.status(Code.INTERNAL_SERVER_ERROR).json(
+                new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, "An error occurred")
+            );
         }
-       
+    };
+
+
 
     // Add other teacher-related controller methods here
     // For example:

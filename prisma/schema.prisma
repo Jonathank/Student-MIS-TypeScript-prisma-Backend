@@ -122,6 +122,7 @@ model Parent {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   students  Student[]
+  
 }
 
 model Exam {

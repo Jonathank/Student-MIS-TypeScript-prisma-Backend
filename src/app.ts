@@ -29,7 +29,11 @@ export class App {
 
     private routes(): void {
         this.app.use(`${this.API_PREFIX_List}/lists`, TeacherRoutes);
+
+        //students routes
         this.app.use(`${this.API_PREFIX_List}/lists`, StudentsRoutes);
+        this.app.use(`${this.API_PREFIX_List}/lists/students/:id`, StudentsRoutes);
+
     }
 
 }
