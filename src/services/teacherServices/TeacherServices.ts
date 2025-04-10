@@ -30,6 +30,7 @@ export class TeachersService {
             }
             if (search) {
                 whereClause.OR = [
+                    { id: { contains: search, mode: "insensitive" } },
                     { username: { contains: search, mode: "insensitive" } },
                     { surname: { contains: search, mode: "insensitive" } },
                     { email: { contains: search, mode: "insensitive" } },

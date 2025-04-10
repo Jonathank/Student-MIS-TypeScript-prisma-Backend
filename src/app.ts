@@ -23,7 +23,22 @@ export class App {
     }
 
     private middleware(): void {
-        this.app.use(cors({ origin: "http://localhost:3000" }));
+        const allowedOrigins = [
+            `http://${ip.address()}:3000`,
+            `http://${ip.address()}:5000`,
+            "http://localhost:3000",
+            "http://localhost:5000",
+        ];
+        this.app.use(cors({
+            origin: (origin, callback) => {
+                if (!origin || allowedOrigins.includes(origin)) {
+                    callback(null, true);
+                } else {
+                    callback(new Error("Not allowed by CORS"));
+                }
+            },
+            credentials: true,
+        }));
         this.app.use(express.json());
     }
 
