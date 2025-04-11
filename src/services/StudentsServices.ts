@@ -11,7 +11,6 @@ export class StudentsService {
         search?: string,
         gender?: string,
         teacherId?: string
-
     ) {
         try {
             const skip = (page - 1) * limit;
